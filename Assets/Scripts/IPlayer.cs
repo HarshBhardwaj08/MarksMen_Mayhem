@@ -18,5 +18,9 @@ public interface IPlayerAnimator
 }
 public interface IplayerChangeWeapon
 {
-
+    void ChangeWeaponInputs();
+}
+public interface IReload
+{
+    void Reload();
 }

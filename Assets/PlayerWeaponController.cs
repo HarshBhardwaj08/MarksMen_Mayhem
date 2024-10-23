@@ -6,6 +6,8 @@ public class PlayerWeaponController : MonoBehaviour
 {
     private PLayer pLayer;
     private Animator animator;
+    private const  float fixedBulletSpeed = 20.0f;
+    private WeaponChangerScript weaponChangerScript;
     [SerializeField] private GameObject Bullet;
     [SerializeField] private Transform gunPoint;
     [SerializeField] private float bulletSpeed;
@@ -28,7 +30,8 @@ public class PlayerWeaponController : MonoBehaviour
         WeaponChangerScript.IsReloading_ChangeCompeted -= IsReloading_ChangeCompeted;
     }
     private void Start()
-    {
+    {  
+       
         animator = GetComponentInChildren<Animator>();
         pLayer = GetComponent<PLayer>();
         pLayer.playerControls.Character.Fire.performed += ctx => shoot("Fire");
@@ -39,8 +42,9 @@ public class PlayerWeaponController : MonoBehaviour
     {
       
         GameObject newBullets = Instantiate(Bullet,gunPoint.position,Quaternion.LookRotation(gunPoint.forward));
-        newBullets.GetComponent<Rigidbody>().velocity = BulletDirection()*bulletSpeed;
-        Destroy(newBullets,10.0f);
+        Rigidbody rb = newBullets.GetComponent<Rigidbody>();
+        rb.mass =  fixedBulletSpeed / bulletSpeed;
+        rb.velocity = BulletDirection()*bulletSpeed;
         animator.SetTrigger(anim);
     }
     public Vector3 BulletDirection()

@@ -42,13 +42,58 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "SwitchWeapon",
+                    "name": "SwitchWeapon1",
                     "type": "Value",
                     "id": "3a449591-5ae2-41d8-abc0-1e82e0f9f75a",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "SwitchWeapon2",
+                    "type": "Value",
+                    "id": "8ec340b3-5e5d-4ea4-9c24-486ed9e7c843",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "SwitchWeapon3",
+                    "type": "Value",
+                    "id": "8b077cea-5a55-44cd-b1dc-830599dfc13d",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "SwitchWeapon4",
+                    "type": "Value",
+                    "id": "a840363c-c459-44d3-9166-5ad8065c4fdf",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "SwitchWeapon5",
+                    "type": "Value",
+                    "id": "f28c5df9-8f7c-426b-895b-533851a10a9e",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Reload",
+                    "type": "Button",
+                    "id": "077d242e-4101-42eb-a1b9-20981ca8b6a7",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -147,51 +192,62 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "SwitchWeapon",
+                    "action": "SwitchWeapon1",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "56b5b35a-6533-4548-a78a-877e9bd0055f",
+                    "id": "2e50f0e1-9435-4b87-be23-dfb783996d9f",
                     "path": "<Keyboard>/2",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "SwitchWeapon",
+                    "action": "SwitchWeapon2",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "326c2e9e-9013-47a3-8154-a5eaded0bdcd",
+                    "id": "d2bc27fc-235c-4d4d-9c7d-a08d1ee2b544",
                     "path": "<Keyboard>/3",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "SwitchWeapon",
+                    "action": "SwitchWeapon3",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "09ce2bf3-2651-440f-8441-4ad16d16dcb1",
+                    "id": "4b9843be-6d76-405f-bdc0-d0f4065072e3",
                     "path": "<Keyboard>/4",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "SwitchWeapon",
+                    "action": "SwitchWeapon4",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "1fbdd6cd-2ebc-456c-a564-93afea24d0e5",
+                    "id": "81db703c-62ad-4828-8f19-ce2520d5aaf2",
                     "path": "<Keyboard>/5",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "SwitchWeapon",
+                    "action": "SwitchWeapon5",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "750709ad-810d-4198-b9fb-032f3e12a7ba",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Reload",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
