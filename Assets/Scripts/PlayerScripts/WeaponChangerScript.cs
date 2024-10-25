@@ -14,15 +14,32 @@ public class WeaponChangerScript : MonoBehaviour
     [SerializeField] float RevertBackTime_AfterChangingWeapon;
     [SerializeField] Rig rig;
     [SerializeField] TwoBoneIKConstraint left_handiKConstraint;
+
     private bool isSwitchWeaponCompleted = false;
     private bool isReloadingCompleted = false;
     private bool isWeaponGrabOver = false;
     public static event Action<bool> IsReloading_ChangeCompeted;
-
+    private Dave inputActions;
+    private PLayer pLayer;
     private void Awake()
     {
         ActivateGuns(0);
+        pLayer = GetComponentInParent<PLayer>();
     }
+    private void Start()
+    {
+        var inputActions = pLayer.playerControls.Character;
+        inputActions.Reload.performed += ctx => ReloadWeapon();
+    }
+
+    private void ReloadWeapon()
+    {
+        IsReloading_ChangeCompeted?.Invoke(false);
+        isReloadingCompleted = false;
+        rig.weight = 0;
+        animator.SetTrigger("Reload");
+    }
+
     private void Update()
     {
         ChangeWeaponInput();
@@ -31,13 +48,6 @@ public class WeaponChangerScript : MonoBehaviour
 
     private void ChangeWeaponInput()
     {
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            IsReloading_ChangeCompeted?.Invoke(false);
-            isReloadingCompleted = false;
-            rig.weight = 0;
-            animator.SetTrigger("Reload");
-        }
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             ActivateGuns(0);

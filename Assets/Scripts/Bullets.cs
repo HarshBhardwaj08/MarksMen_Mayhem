@@ -9,7 +9,6 @@ public class Bullets : MonoBehaviour
     private Rigidbody rb;
     private void OnCollisionEnter(Collision collision)
     {
-
         if (collision.contacts.Length > 0)
         {
             ContactPoint contact = collision.contacts[0];

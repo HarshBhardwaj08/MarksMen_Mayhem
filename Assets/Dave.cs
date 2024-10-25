@@ -82,36 +82,27 @@ public partial class @Dave: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""SwitchWeapon3"",
-                    ""type"": ""Value"",
-                    ""id"": ""8b077cea-5a55-44cd-b1dc-830599dfc13d"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": true
-                },
-                {
-                    ""name"": ""SwitchWeapon4"",
-                    ""type"": ""Value"",
-                    ""id"": ""a840363c-c459-44d3-9166-5ad8065c4fdf"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": true
-                },
-                {
-                    ""name"": ""SwitchWeapon5"",
-                    ""type"": ""Value"",
-                    ""id"": ""f28c5df9-8f7c-426b-895b-533851a10a9e"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": true
-                },
-                {
                     ""name"": ""Reload"",
                     ""type"": ""Button"",
                     ""id"": ""077d242e-4101-42eb-a1b9-20981ca8b6a7"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""PickUpWeapon"",
+                    ""type"": ""Button"",
+                    ""id"": ""43c33c7b-9626-4cad-8eaf-1c83aeb6d0d1"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""DropWeapon"",
+                    ""type"": ""Button"",
+                    ""id"": ""46ca5439-82c8-4018-b664-7567c878cb20"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -231,45 +222,34 @@ public partial class @Dave: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""d2bc27fc-235c-4d4d-9c7d-a08d1ee2b544"",
-                    ""path"": ""<Keyboard>/3"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""SwitchWeapon3"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""4b9843be-6d76-405f-bdc0-d0f4065072e3"",
-                    ""path"": ""<Keyboard>/4"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""SwitchWeapon4"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""81db703c-62ad-4828-8f19-ce2520d5aaf2"",
-                    ""path"": ""<Keyboard>/5"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""SwitchWeapon5"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""750709ad-810d-4198-b9fb-032f3e12a7ba"",
                     ""path"": ""<Keyboard>/r"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Reload"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d5faec73-b39a-4e12-a034-e312364c951e"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""PickUpWeapon"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""87897cb9-ede3-476c-bc2c-9cf915e11eba"",
+                    ""path"": ""<Keyboard>/g"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""DropWeapon"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -286,10 +266,9 @@ public partial class @Dave: IInputActionCollection2, IDisposable
         m_Character_Sprint = m_Character.FindAction("Sprint", throwIfNotFound: true);
         m_Character_SwitchWeapon1 = m_Character.FindAction("SwitchWeapon1", throwIfNotFound: true);
         m_Character_SwitchWeapon2 = m_Character.FindAction("SwitchWeapon2", throwIfNotFound: true);
-        m_Character_SwitchWeapon3 = m_Character.FindAction("SwitchWeapon3", throwIfNotFound: true);
-        m_Character_SwitchWeapon4 = m_Character.FindAction("SwitchWeapon4", throwIfNotFound: true);
-        m_Character_SwitchWeapon5 = m_Character.FindAction("SwitchWeapon5", throwIfNotFound: true);
         m_Character_Reload = m_Character.FindAction("Reload", throwIfNotFound: true);
+        m_Character_PickUpWeapon = m_Character.FindAction("PickUpWeapon", throwIfNotFound: true);
+        m_Character_DropWeapon = m_Character.FindAction("DropWeapon", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -357,10 +336,9 @@ public partial class @Dave: IInputActionCollection2, IDisposable
     private readonly InputAction m_Character_Sprint;
     private readonly InputAction m_Character_SwitchWeapon1;
     private readonly InputAction m_Character_SwitchWeapon2;
-    private readonly InputAction m_Character_SwitchWeapon3;
-    private readonly InputAction m_Character_SwitchWeapon4;
-    private readonly InputAction m_Character_SwitchWeapon5;
     private readonly InputAction m_Character_Reload;
+    private readonly InputAction m_Character_PickUpWeapon;
+    private readonly InputAction m_Character_DropWeapon;
     public struct CharacterActions
     {
         private @Dave m_Wrapper;
@@ -371,10 +349,9 @@ public partial class @Dave: IInputActionCollection2, IDisposable
         public InputAction @Sprint => m_Wrapper.m_Character_Sprint;
         public InputAction @SwitchWeapon1 => m_Wrapper.m_Character_SwitchWeapon1;
         public InputAction @SwitchWeapon2 => m_Wrapper.m_Character_SwitchWeapon2;
-        public InputAction @SwitchWeapon3 => m_Wrapper.m_Character_SwitchWeapon3;
-        public InputAction @SwitchWeapon4 => m_Wrapper.m_Character_SwitchWeapon4;
-        public InputAction @SwitchWeapon5 => m_Wrapper.m_Character_SwitchWeapon5;
         public InputAction @Reload => m_Wrapper.m_Character_Reload;
+        public InputAction @PickUpWeapon => m_Wrapper.m_Character_PickUpWeapon;
+        public InputAction @DropWeapon => m_Wrapper.m_Character_DropWeapon;
         public InputActionMap Get() { return m_Wrapper.m_Character; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -402,18 +379,15 @@ public partial class @Dave: IInputActionCollection2, IDisposable
             @SwitchWeapon2.started += instance.OnSwitchWeapon2;
             @SwitchWeapon2.performed += instance.OnSwitchWeapon2;
             @SwitchWeapon2.canceled += instance.OnSwitchWeapon2;
-            @SwitchWeapon3.started += instance.OnSwitchWeapon3;
-            @SwitchWeapon3.performed += instance.OnSwitchWeapon3;
-            @SwitchWeapon3.canceled += instance.OnSwitchWeapon3;
-            @SwitchWeapon4.started += instance.OnSwitchWeapon4;
-            @SwitchWeapon4.performed += instance.OnSwitchWeapon4;
-            @SwitchWeapon4.canceled += instance.OnSwitchWeapon4;
-            @SwitchWeapon5.started += instance.OnSwitchWeapon5;
-            @SwitchWeapon5.performed += instance.OnSwitchWeapon5;
-            @SwitchWeapon5.canceled += instance.OnSwitchWeapon5;
             @Reload.started += instance.OnReload;
             @Reload.performed += instance.OnReload;
             @Reload.canceled += instance.OnReload;
+            @PickUpWeapon.started += instance.OnPickUpWeapon;
+            @PickUpWeapon.performed += instance.OnPickUpWeapon;
+            @PickUpWeapon.canceled += instance.OnPickUpWeapon;
+            @DropWeapon.started += instance.OnDropWeapon;
+            @DropWeapon.performed += instance.OnDropWeapon;
+            @DropWeapon.canceled += instance.OnDropWeapon;
         }
 
         private void UnregisterCallbacks(ICharacterActions instance)
@@ -436,18 +410,15 @@ public partial class @Dave: IInputActionCollection2, IDisposable
             @SwitchWeapon2.started -= instance.OnSwitchWeapon2;
             @SwitchWeapon2.performed -= instance.OnSwitchWeapon2;
             @SwitchWeapon2.canceled -= instance.OnSwitchWeapon2;
-            @SwitchWeapon3.started -= instance.OnSwitchWeapon3;
-            @SwitchWeapon3.performed -= instance.OnSwitchWeapon3;
-            @SwitchWeapon3.canceled -= instance.OnSwitchWeapon3;
-            @SwitchWeapon4.started -= instance.OnSwitchWeapon4;
-            @SwitchWeapon4.performed -= instance.OnSwitchWeapon4;
-            @SwitchWeapon4.canceled -= instance.OnSwitchWeapon4;
-            @SwitchWeapon5.started -= instance.OnSwitchWeapon5;
-            @SwitchWeapon5.performed -= instance.OnSwitchWeapon5;
-            @SwitchWeapon5.canceled -= instance.OnSwitchWeapon5;
             @Reload.started -= instance.OnReload;
             @Reload.performed -= instance.OnReload;
             @Reload.canceled -= instance.OnReload;
+            @PickUpWeapon.started -= instance.OnPickUpWeapon;
+            @PickUpWeapon.performed -= instance.OnPickUpWeapon;
+            @PickUpWeapon.canceled -= instance.OnPickUpWeapon;
+            @DropWeapon.started -= instance.OnDropWeapon;
+            @DropWeapon.performed -= instance.OnDropWeapon;
+            @DropWeapon.canceled -= instance.OnDropWeapon;
         }
 
         public void RemoveCallbacks(ICharacterActions instance)
@@ -473,9 +444,8 @@ public partial class @Dave: IInputActionCollection2, IDisposable
         void OnSprint(InputAction.CallbackContext context);
         void OnSwitchWeapon1(InputAction.CallbackContext context);
         void OnSwitchWeapon2(InputAction.CallbackContext context);
-        void OnSwitchWeapon3(InputAction.CallbackContext context);
-        void OnSwitchWeapon4(InputAction.CallbackContext context);
-        void OnSwitchWeapon5(InputAction.CallbackContext context);
         void OnReload(InputAction.CallbackContext context);
+        void OnPickUpWeapon(InputAction.CallbackContext context);
+        void OnDropWeapon(InputAction.CallbackContext context);
     }
 }

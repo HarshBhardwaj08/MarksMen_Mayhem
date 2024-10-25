@@ -60,36 +60,27 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "SwitchWeapon3",
-                    "type": "Value",
-                    "id": "8b077cea-5a55-44cd-b1dc-830599dfc13d",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true
-                },
-                {
-                    "name": "SwitchWeapon4",
-                    "type": "Value",
-                    "id": "a840363c-c459-44d3-9166-5ad8065c4fdf",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true
-                },
-                {
-                    "name": "SwitchWeapon5",
-                    "type": "Value",
-                    "id": "f28c5df9-8f7c-426b-895b-533851a10a9e",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true
-                },
-                {
                     "name": "Reload",
                     "type": "Button",
                     "id": "077d242e-4101-42eb-a1b9-20981ca8b6a7",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "PickUpWeapon",
+                    "type": "Button",
+                    "id": "43c33c7b-9626-4cad-8eaf-1c83aeb6d0d1",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "DropWeapon",
+                    "type": "Button",
+                    "id": "46ca5439-82c8-4018-b664-7567c878cb20",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -209,45 +200,34 @@
                 },
                 {
                     "name": "",
-                    "id": "d2bc27fc-235c-4d4d-9c7d-a08d1ee2b544",
-                    "path": "<Keyboard>/3",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "SwitchWeapon3",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "4b9843be-6d76-405f-bdc0-d0f4065072e3",
-                    "path": "<Keyboard>/4",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "SwitchWeapon4",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "81db703c-62ad-4828-8f19-ce2520d5aaf2",
-                    "path": "<Keyboard>/5",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "SwitchWeapon5",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "750709ad-810d-4198-b9fb-032f3e12a7ba",
                     "path": "<Keyboard>/r",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Reload",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d5faec73-b39a-4e12-a034-e312364c951e",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "PickUpWeapon",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "87897cb9-ede3-476c-bc2c-9cf915e11eba",
+                    "path": "<Keyboard>/g",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "DropWeapon",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
