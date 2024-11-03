@@ -17,7 +17,7 @@ public class PlayerMovement : MonoBehaviour
     private AimController aimController;
     private void Start()
     {
-        playerControls = GetComponent<PLayer>().playerControls;
+        playerControls = PLayer.playerControls;
 
         animator = GetComponentInChildren<Animator>();
         originalWalkSpeed = walkSpeed;

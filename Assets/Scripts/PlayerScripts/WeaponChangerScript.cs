@@ -6,34 +6,85 @@ using UnityEngine.Animations.Rigging;
 
 public class WeaponChangerScript : MonoBehaviour
 {
-    [SerializeField] List<GameObject> guns;
-    [SerializeField] List<Transform> LeftHandIKList; 
     [SerializeField] Transform leftHandIK;
     [SerializeField] Animator animator;
     [SerializeField] float ReloadTime ;
     [SerializeField] float RevertBackTime_AfterChangingWeapon;
     [SerializeField] Rig rig;
     [SerializeField] TwoBoneIKConstraint left_handiKConstraint;
-
+    [SerializeField] private WeaponInfo[] weaponInfos;
+    [SerializeField] private Back_Weapons[] back_weapons;
     private bool isSwitchWeaponCompleted = false;
     private bool isReloadingCompleted = false;
     private bool isWeaponGrabOver = false;
     public static event Action<bool> IsReloading_ChangeCompeted;
-    private Dave inputActions;
-    private PLayer pLayer;
-    private void Awake()
-    {
-        ActivateGuns(0);
-        pLayer = GetComponentInParent<PLayer>();
-    }
+
+    private WeaponInfo weaponInfo;
     private void Start()
     {
-        var inputActions = pLayer.playerControls.Character;
+        var inputActions = PLayer.playerControls.Character;
         inputActions.Reload.performed += ctx => ReloadWeapon();
+        weaponInfos = GetComponentsInChildren<WeaponInfo>(true);
+        back_weapons = GetComponentsInChildren<Back_Weapons>(true);
     }
-
-    private void ReloadWeapon()
+    private void OnEnable()
     {
+        Item_Pickup.PickUpWeapon += EnableWeapon;
+        PlayerWeaponController.CurrentWeaponEnable += EnableWeapon;
+        PlayerWeaponController.SecondaryWeapon += EnableSecondryWeapon;
+        PlayerWeaponController.OnReload += ReloadWeapon;
+    }
+    private void OnDisable()
+    {
+        PlayerWeaponController.CurrentWeaponEnable -= EnableWeapon;
+        PlayerWeaponController.SecondaryWeapon -= EnableSecondryWeapon;
+        Item_Pickup.PickUpWeapon -= EnableWeapon;
+        PlayerWeaponController.OnReload -= ReloadWeapon;
+    }
+    private void EnableWeapon(Weapon weapon)
+    {
+       for (int i = 0; i < weaponInfos.Length; i++)
+        {
+            if (weaponInfos[i].WeaponType == weapon.currentWeaponType)
+            {   
+                weapon.gunPoint = weaponInfos[i].GunPoint;
+                weaponInfos[i].gameObject.SetActive(true);
+                SetWeaponPlacement(weaponInfos[i].LeftHandIk);
+                SwitchAnimationLayer(((int)weaponInfos[i].HoldType));
+                SwitchWeapon(weaponInfos[i].SwitchWeapontype);
+                weaponInfos[i].Laser.SetActive(true);
+                weaponInfo = weaponInfos[i];
+            }
+            else
+            {
+                weaponInfos[i].gameObject.SetActive(false);
+                weaponInfos[i].Laser.SetActive(false);
+            }
+        }
+    }
+    private void EnableSecondryWeapon(Weapontype weapontype)
+    {
+        for(int i = 0;i < back_weapons.Length; i++)
+        {
+            if (back_weapons[i].weapontype == weapontype)
+            {
+                back_weapons[i].gameObject.SetActive(true);
+            }
+            else
+            {
+                back_weapons[i].gameObject.SetActive(false);
+            }
+        }
+    }
+    private void SetWeaponPlacement(Transform weaponTransform)
+    {
+        leftHandIK.position =  weaponTransform.position;
+        leftHandIK.rotation =  weaponTransform.rotation;
+    }
+ 
+    private void ReloadWeapon()
+    { 
+        weaponInfo?.Laser.SetActive(true);
         IsReloading_ChangeCompeted?.Invoke(false);
         isReloadingCompleted = false;
         rig.weight = 0;
@@ -42,46 +93,11 @@ public class WeaponChangerScript : MonoBehaviour
 
     private void Update()
     {
-        ChangeWeaponInput();
         ReBalanceRig();
     }
 
-    private void ChangeWeaponInput()
-    {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            ActivateGuns(0);
-            SwitchAnimationLayer(1);
-            SwitchWeapon(SwitchWeapontype.sidegrab);
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            ActivateGuns(1);
-            SwitchAnimationLayer(1);
-            SwitchWeapon(SwitchWeapontype.sidegrab);
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            ActivateGuns(2);
-            SwitchAnimationLayer(1);
-            SwitchWeapon(SwitchWeapontype.backgrab);
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha4))
-        {
-            ActivateGuns(3);
-            SwitchAnimationLayer(2);
-            SwitchWeapon(SwitchWeapontype.backgrab);
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha5))
-        {
-            ActivateGuns(4);
-            SwitchAnimationLayer(3);
-            SwitchWeapon(SwitchWeapontype.backgrab);
-        }
-    }
-
     private void ReBalanceRig()
-    {
+    { 
         if (isReloadingCompleted == true)
         {
             rig.weight += ReloadTime * Time.deltaTime;
@@ -91,8 +107,6 @@ public class WeaponChangerScript : MonoBehaviour
             left_handiKConstraint.weight += RevertBackTime_AfterChangingWeapon * Time.deltaTime;
         }
     }
-
-
     public void SwitchWeapon(SwitchWeapontype weapontype)
     {
         IsReloading_ChangeCompeted?.Invoke(false);
@@ -106,28 +120,6 @@ public class WeaponChangerScript : MonoBehaviour
         animator.SetTrigger("SwitchWeapon");
     }
 
-
-    public void ActivateGuns(int val)
-    {
-       
-        if (val < guns.Count)
-        {
-            guns[val].SetActive(true);
-            leftHandIK.position = LeftHandIKList[val].position;
-            leftHandIK.rotation = LeftHandIKList[val].rotation;
-            DeactivateGuns(val);
-        }
-    }
-    public void DeactivateGuns(int val)
-    {
-        for (int i = 0; i < guns.Count; i++)
-        {
-            if (guns[i] != null && i != val)
-            {
-                guns[i].SetActive(false);
-            }
-        }
-    }
     public void SwitchAnimationLayer(int layerIndex)
     {
         for(int i = 1; i < animator.layerCount; i++)
@@ -140,6 +132,7 @@ public class WeaponChangerScript : MonoBehaviour
     {
         IsReloading_ChangeCompeted?.Invoke(true);
         isReloadingCompleted = true;
+        weaponInfo?.Laser.SetActive(true);
     }
     public void ResetLeftHandIKRig()
     {
@@ -150,10 +143,7 @@ public class WeaponChangerScript : MonoBehaviour
     public void WeponGrabOver()
     {
       isWeaponGrabOver = false;
+      weaponInfo?.Laser.SetActive(true);
       animator.SetBool("ChangingWeapon", isWeaponGrabOver);
     }
-}
-public enum SwitchWeapontype
-{
-    sidegrab,backgrab
 }

@@ -27,8 +27,9 @@ public class PLayerAim : MonoBehaviour
     {
         player = GetComponent<PLayer>();
         aimController = new AimController(this.transform, aimLayerMask);
-        player.playerControls.Character.Aim.performed += ctx => aimInput = ctx.ReadValue<Vector2>();
-        player.playerControls.Character.Aim.canceled += ctx => aimInput = Vector2.zero;
+        var playerControls = PLayer.playerControls.Character;
+        playerControls.Aim.performed += ctx => aimInput = ctx.ReadValue<Vector2>();
+        playerControls.Aim.canceled += ctx => aimInput = Vector2.zero;
     }
     private void Update()
     {
@@ -54,18 +55,22 @@ public class PLayerAim : MonoBehaviour
     private void UpdateAimLaser()
     {
         float laserTipLength = tipLength;
-        Transform gunPoint = player.playerWeaponController.GunPoint();
+        Transform gunPoint = player.playerWeaponController?.GunPoint();
         Vector3 laserDirection = player.playerWeaponController.BulletDirection();
         float gunDistance = 4f;
-        Vector3 endPoint = gunPoint.position + laserDirection * gunDistance;
-        if(Physics.Raycast(gunPoint.position,laserDirection,out RaycastHit hit, gunDistance))
+        if (laserDirection != null)
         {
-            endPoint = hit.point;
-            laserTipLength = 0;
+            Vector3 endPoint = gunPoint.position + laserDirection * gunDistance;
+            if (Physics.Raycast(gunPoint.position, laserDirection, out RaycastHit hit, gunDistance))
+            {
+                endPoint = hit.point;
+                laserTipLength = 0;
+            }
+            aimlaser.SetPosition(0, gunPoint.position);
+            aimlaser.SetPosition(1, endPoint);
+            aimlaser.SetPosition(2, endPoint + laserDirection * laserTipLength);
         }
-        aimlaser.SetPosition(0,gunPoint.position);
-        aimlaser.SetPosition(1, endPoint);
-        aimlaser.SetPosition(2,endPoint + laserDirection * laserTipLength);
+       
     }
 
     private Transform hitTarget()

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PLayer : MonoBehaviour
 {
-    public Dave playerControls ;
+    public static Dave playerControls { get; private set; }
     public PlayerMovement playerMovement ;
     public PLayerAim playerAim;
     public PlayerWeaponController playerWeaponController ;

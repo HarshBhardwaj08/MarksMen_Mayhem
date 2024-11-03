@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 public class PlayerWeaponController : MonoBehaviour
 {
     [Header("Weapon")]
-    [SerializeField] private Weapon currentWeapon = null;
+    private Weapon currentWeapon = null;
    
     private PLayer pLayer;
     private Animator animator;
@@ -20,13 +20,18 @@ public class PlayerWeaponController : MonoBehaviour
     [SerializeField] private Transform weaponHolder;
     [SerializeField] private Transform aim;
     private bool isReloading_ChangeCompete = true;
-
+    public static event Action<Weapon> CurrentWeaponEnable;
+    public static event Action<Weapontype> SecondaryWeapon;
+    public  delegate void Reload();
+    public static event Reload OnReload;
     public List<Weapon> weaponSlot;
+    private int currentWeaponNum = 5;
     private void Start()
     {
         animator = GetComponentInChildren<Animator>();
         pLayer = GetComponent<PLayer>();
         AssignInputs();
+        ObjectPool.instance.CreatePool(Bullet.name, Bullet);
     }
     private void OnEnable()
     {
@@ -39,12 +44,13 @@ public class PlayerWeaponController : MonoBehaviour
     }
     private void PickupWeapon(Weapon weapon)
     { 
-        if(weaponSlot.Count > 2)
+        if(weaponSlot.Count > 2 )
         {
             return;
         }
        weaponSlot.Add(weapon);
        currentWeapon = weapon;
+       CurrentWeaponEnable?.Invoke(currentWeapon);
     }
     private void IsReloading_ChangeCompeted(bool obj)
     {
@@ -52,8 +58,31 @@ public class PlayerWeaponController : MonoBehaviour
         ReloadWeapon();
     }
     private void EquipWeapon(int num)
-    {
+    { 
+        if(weaponSlot.Count <= 1 || currentWeaponNum == num)
+        {
+            return;
+        }
+        currentWeaponNum = num;
         currentWeapon = weaponSlot[num];
+        CurrentWeaponEnable?.Invoke(currentWeapon);
+        SecondaryWeapon?.Invoke(BackWeaponType());
+        gunPoint = currentWeapon.gunPoint;
+    }
+    private Weapontype BackWeaponType()
+    {  
+        if(weaponSlot.Count <= 1)
+        {
+            return 0;
+        }
+        for(int i = 0; i < weaponSlot.Count; i++)
+        {
+            if (weaponSlot[i].currentWeaponType != currentWeapon.currentWeaponType)
+            {
+                return weaponSlot[i].currentWeaponType;
+            }
+        }
+        return currentWeapon.currentWeaponType;
     }
     private void DropWeapon()
     { 
@@ -61,17 +90,29 @@ public class PlayerWeaponController : MonoBehaviour
         {
             return;
         }
+       
         weaponSlot.Remove(currentWeapon);
         currentWeapon = weaponSlot[0];
     }
     private void shoot(string anim)
-    { 
-       if( currentWeapon.WeaponCurrentAmmo <= 0 || isReloading_ChangeCompete == false)
+    {
+        if (currentWeapon.isFireEnable()== false)
         {
             return;
         }
-        currentWeapon.WeaponCurrentAmmo--;
-        GameObject newBullets = Instantiate(Bullet,gunPoint.position,Quaternion.LookRotation(gunPoint.forward));
+       if( currentWeapon.weaponCurrentAmmo <= 0 || isReloading_ChangeCompete == false )
+        { 
+            if(currentWeapon.weaponCurrentAmmo <= 0)
+            {
+                OnReload?.Invoke();
+            }
+            return;
+        }
+        currentWeapon.weaponCurrentAmmo--;
+       // GameObject newBullets = Instantiate(Bullet,gunPoint.position,Quaternion.LookRotation(gunPoint.forward));
+        GameObject newBullets = ObjectPool.instance.GetObjectFromPool(Bullet.name);
+        newBullets.transform.position = gunPoint.position;
+        newBullets.transform.rotation = Quaternion.LookRotation(gunPoint.forward);
         Rigidbody rb = newBullets.GetComponent<Rigidbody>();
         rb.mass =  fixedBulletSpeed / bulletSpeed;
         rb.velocity = BulletDirection()*bulletSpeed;
@@ -94,7 +135,7 @@ public class PlayerWeaponController : MonoBehaviour
     public Transform GunPoint () => gunPoint;
     private void AssignInputs()
     {
-        var inputActions = pLayer.playerControls.Character;
+        var inputActions = PLayer.playerControls.Character;
         inputActions.Fire.performed += ctx => shoot("Fire");
         inputActions.SwitchWeapon1.performed += ctx => EquipWeapon(0);
         inputActions.SwitchWeapon2.performed += ctx => EquipWeapon(1);
@@ -103,8 +144,8 @@ public class PlayerWeaponController : MonoBehaviour
     }
 
     private void ReloadWeapon()
-    {
-        currentWeapon.WeaponCurrentAmmo = currentWeapon.WeaponMagzineSize;
+    { 
+        currentWeapon.weaponCurrentAmmo = currentWeapon.weaponMagzineSize;
     }
 }
 

@@ -28,9 +28,9 @@ Transform:
   m_GameObject: {fileID: 609960358562909605}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.18095809, y: 1.1216528, z: 0.3909902}
-  m_LocalScale: {x: 2, y: 2, z: 2}
-  m_ConstrainProportionsScale: 1
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7106699212977105032}
   - {fileID: 6838049328038301275}
@@ -62,10 +62,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weapon:
-    currentWeapon: 3
-    WeaponCurrentAmmo: 7
-    WeaponMagzineSize: 7
-    WeaponMaxMagzine: 30
+    currentWeaponType: 3
+    currentWeaponCategory: 0
+    weaponFireRate: 2
+    weaponCurrentAmmo: 0
+    weaponMagzineSize: 0
+    weaponMaxMagzine: 0
+    gunPoint: {fileID: 0}
 --- !u!65 &1238129900465473724
 BoxCollider:
   m_ObjectHideFlags: 0

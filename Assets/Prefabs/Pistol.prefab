@@ -62,10 +62,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weapon:
-    currentWeapon: 0
-    WeaponCurrentAmmo: 15
-    WeaponMagzineSize: 15
-    WeaponMaxMagzine: 45
+    currentWeaponType: 0
+    currentWeaponCategory: 0
+    weaponFireRate: 1
+    weaponCurrentAmmo: 15
+    weaponMagzineSize: 45
+    weaponMaxMagzine: 90
+    gunPoint: {fileID: 0}
 --- !u!65 &2217839551413404706
 BoxCollider:
   m_ObjectHideFlags: 0
